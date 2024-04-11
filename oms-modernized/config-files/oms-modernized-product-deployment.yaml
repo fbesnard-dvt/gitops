@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oms-product
+  name: oms-product
+  namespace: fbesnard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oms-product 
+  template:
+    metadata:
+      labels:
+        app: oms-product 
+    spec:
+      containers:
+      - image: fbesnarddvt/refactoring-oms-product-controller:1.0
+        name: oms-product 
+        envFrom:
+        - configMapRef:
+            name: oms-product-app-config
+        ports:
+        - containerPort: 8080
