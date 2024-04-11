@@ -1,0 +1,25 @@
+service:
+    name: harness_OMS
+    identifier: harnessOMS
+    serviceDefinition:
+        type: Kubernetes
+        spec:
+            manifests:
+                - manifest:
+                    identifier: OMS
+                    type: K8sManifest
+                    spec:
+                      store:
+                        type: Github
+                        spec:
+                            connectorRef: harnessgitconnector
+                            gitFetchType: Branch
+                            paths:
+                                - oms-modernized/oms-modernized-deployment.yaml
+                                - oms-modernized/oms-modernized-svc.yaml
+                                - oms-modernized/oms-modernized-configmaps.yaml
+                            repoName: gitops
+                            branch: master
+                        skipResourceVersioning: false
+                        enableDeclarativeRollback: false
+    gitOpsEnabled: false

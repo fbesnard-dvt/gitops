@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: oms-inventory
+  name: oms-inventory-app-config
+  namespace: fbesnard
+data:
+  SPRING_DATASOURCE_URL: "jdbc:h2:tcp://oms-h2-data:1521/test"
+  SPRING_DATASOURCE_DRIVER-CLASS-NAME: "org.h2.Driver"
+  SPRING_DATASOURCE_USERNAME: "sa"
+  SPRING_DATASOURCE_PASSWORD: "password"
+  SPRING_JPA_HIBERNATE_DDL-AUTO: "update"
+  SERVER_PORT: "8080"
+  SPRING_PROFILES_ACTIVE: "local"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: oms-product
+  name: oms-product-app-config
+  namespace: fbesnard
+data:
+  SPRING_DATASOURCE_URL: "jdbc:h2:tcp://oms-h2-data:1521/test"
+  SPRING_DATASOURCE_DRIVER-CLASS-NAME: "org.h2.Driver"
+  SPRING_DATASOURCE_USERNAME: "sa"
+  SPRING_DATASOURCE_PASSWORD: "password"
+  SPRING_JPA_HIBERNATE_DDL-AUTO: "update"
+  SERVER_PORT: "8080"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: oms-order
+  name: oms-order-app-config
+  namespace: fbesnard
+data:
+  SPRING_DATASOURCE_URL: "jdbc:h2:tcp://oms-h2-data:1521/test"
+  SPRING_DATASOURCE_DRIVER-CLASS-NAME: "org.h2.Driver"
+  SPRING_DATASOURCE_USERNAME: "sa"
+  SPRING_DATASOURCE_PASSWORD: "password"
+  SPRING_JPA_HIBERNATE_DDL-AUTO: "update"
+  SERVER_PORT: "8080"
+---

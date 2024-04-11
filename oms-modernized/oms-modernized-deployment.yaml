@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oms-h2-db
+  name: oms-h2-db
+  namespace: fbesnard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oms-h2-db
+  template:
+    metadata:
+      labels:
+        app: oms-h2-db
+    spec:
+      containers:
+      - image: oscarfonts/h2
+        name: oms-h2
+        env:
+        - name: H2_OPTIONS
+          value: "-ifNotExists"
+        ports:
+        - containerPort: 81
+        - containerPort: 1521
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oms-inventory
+  name: oms-inventory
+  namespace: fbesnard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oms-inventory 
+  template:
+    metadata:
+      labels:
+        app: oms-inventory 
+    spec:
+      hostname: oms-inventory
+      containers:
+      - image: fbesnarddvt/refactoring-oms-inventory-controller:1.0
+        name: oms-inventory 
+        envFrom:
+        - configMapRef:
+            name: oms-inventory-app-config
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oms-product
+  name: oms-product
+  namespace: fbesnard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oms-product 
+  template:
+    metadata:
+      labels:
+        app: oms-product 
+    spec:
+      containers:
+      - image: fbesnarddvt/refactoring-oms-product-controller:1.0
+        name: oms-product 
+        envFrom:
+        - configMapRef:
+            name: oms-product-app-config
+        ports:
+        - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oms-order
+  name: oms-order
+  namespace: fbesnard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oms-order 
+  template:
+    metadata:
+      labels:
+        app: oms-order 
+    spec:
+      containers:
+      - image: fbesnarddvt/refactoring-oms-order-controller:1.0
+        name: oms-order 
+        envFrom:
+        - configMapRef:
+            name: oms-order-app-config
+        ports:
+        - containerPort: 8080
+---
